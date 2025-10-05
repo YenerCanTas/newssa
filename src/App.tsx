@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Sparkles, Users, MessageCircle, Lightbulb, Mail, Linkedin, Instagram } from 'lucide-react';
+import { Sparkles, Users, MessageCircle, Lightbulb, Mail, Linkedin, Instagram, Menu, X } from 'lucide-react';
+import teamNazlican from './assets/team-nazlican.png';
+import teamAlara from './assets/team-alara.png';
+import teamEda from './assets/team-eda.png';
+import activity1 from './assets/activity-1.png';
+import activity2 from './assets/activity-2.png';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -7,6 +12,7 @@ function App() {
     email: '',
     message: ''
   });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,23 +22,89 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Navigation Header */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <a href="#hero" className="flex items-center gap-2 group">
+              <Sparkles className="w-8 h-8 text-[#4C46A8] group-hover:rotate-12 transition-transform" />
+              <span className="text-2xl font-bold text-[#262243]">Scirise</span>
+            </a>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#about" className="text-[#262243] hover:text-[#4C46A8] font-medium transition-colors">
+                Hakkımızda
+              </a>
+              <a href="#programs" className="text-[#262243] hover:text-[#4C46A8] font-medium transition-colors">
+                Etkinlikler
+              </a>
+              <a href="#team" className="text-[#262243] hover:text-[#4C46A8] font-medium transition-colors">
+                Ekip
+              </a>
+              <a href="#contact" className="px-6 py-2 bg-[#4C46A8] text-white rounded-full font-medium hover:bg-[#5d56c0] transition-all transform hover:scale-105">
+                Bize Ulaşın
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-[#262243]"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
+              <a
+                href="#about"
+                className="text-[#262243] hover:text-[#4C46A8] font-medium transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Hakkımızda
+              </a>
+              <a
+                href="#programs"
+                className="text-[#262243] hover:text-[#4C46A8] font-medium transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Etkinlikler
+              </a>
+              <a
+                href="#team"
+                className="text-[#262243] hover:text-[#4C46A8] font-medium transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Ekip
+              </a>
+              <a
+                href="#contact"
+                className="px-6 py-2 bg-[#4C46A8] text-white rounded-full font-medium hover:bg-[#5d56c0] transition-all text-center"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Bize Ulaşın
+              </a>
+            </div>
+          )}
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#262243] via-[#3d3763] to-[#4C46A8] text-white overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#262243] via-[#3d3763] to-[#4C46A8] text-white overflow-hidden pt-20">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-64 h-64 bg-purple-400 rounded-full filter blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-          <div className="mb-8 inline-block">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 tracking-tight">
-              Scirise
-            </h1>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight">
-            Pozitif bilimlerin farklı disiplinlerle buluşma noktası <Sparkles className="inline-block w-10 h-10" />
+          <h2 className="text-4xl md:text-6xl font-light mb-8 leading-tight">
+            Pozitif bilimlerin farklı disiplinlerle buluşma noktası
           </h2>
-          <p className="text-xl md:text-2xl mb-12 text-gray-200 font-light">
+          <p className="text-xl md:text-2xl mb-12 text-gray-200 font-light max-w-3xl mx-auto">
             Disiplinlerarası etkileşimi bir kültüre dönüştüren yaratıcı düşünce topluluğu.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
@@ -50,33 +122,107 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-bold text-[#262243] mb-8 text-center">Biz Kimiz?</h2>
-          <p className="text-xl text-gray-700 leading-relaxed text-center">
-            Scirise, disiplinlerarası etkileşimi bir kültüre dönüştürerek farklı alanlardan bireylerin
-            potansiyellerini bir araya getiren, cesur fikirlerin doğduğu ve sınırların olmadığı bir yaratıcı
-            düşünce platformudur. Bilimi toplumsal fayda ve girişimcilik ile buluşturan bir topluluktur.
-          </p>
+      <section id="about" className="py-24 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <h2 className="text-4xl md:text-5xl font-bold text-[#262243] mb-6">Biz Kimiz?</h2>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Scirise, disiplinlerarası etkileşimi bir kültüre dönüştürerek farklı alanlardan bireylerin
+                potansiyellerini bir araya getiren, cesur fikirlerin doğduğu ve sınırların olmadığı bir yaratıcı
+                düşünce platformudur. Bilimi toplumsal fayda ve girişimcilik ile buluşturan bir topluluktur.
+              </p>
+              <div className="mt-8 flex gap-4">
+                <div className="flex-1 p-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-2xl text-white text-center transform hover:scale-105 transition-all">
+                  <div className="text-3xl font-bold mb-2">500+</div>
+                  <div className="text-sm">Topluluk Üyesi</div>
+                </div>
+                <div className="flex-1 p-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-2xl text-white text-center transform hover:scale-105 transition-all">
+                  <div className="text-3xl font-bold mb-2">50+</div>
+                  <div className="text-sm">Etkinlik</div>
+                </div>
+                <div className="flex-1 p-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-2xl text-white text-center transform hover:scale-105 transition-all">
+                  <div className="text-3xl font-bold mb-2">15+</div>
+                  <div className="text-sm">Disiplin</div>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="relative">
+                <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-[#4C46A8] to-[#262243] rounded-3xl opacity-20"></div>
+                <img
+                  src={activity1}
+                  alt="Scirise Etkinliği"
+                  className="relative rounded-3xl shadow-2xl w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* What We Do Section */}
-      <section className="py-24 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-bold text-[#262243] mb-8 text-center">Ne Yaparız</h2>
-          <p className="text-xl text-gray-700 leading-relaxed text-center">
-            Scirise, pozitif bilimlerin birbirleriyle ve farklı disiplinlerle etkileşimine odaklanan söyleşiler,
-            atölyeler ve etkinlikler düzenleyerek birbirini hiç tanımasa da birbirini tamamlayan bireyleri
-            yaratıcı ve özgür fikir üretme ortamlarında buluşturur.
-          </p>
+      <section className="py-24 px-6 bg-gray-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="relative">
+                <div className="absolute -top-6 -right-6 w-full h-full bg-gradient-to-br from-[#4C46A8] to-[#262243] rounded-3xl opacity-20"></div>
+                <img
+                  src={activity2}
+                  alt="Scirise Çalışması"
+                  className="relative rounded-3xl shadow-2xl w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#262243] mb-6">Ne Yaparız</h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                Scirise, pozitif bilimlerin birbirleriyle ve farklı disiplinlerle etkileşimine odaklanan söyleşiler,
+                atölyeler ve etkinlikler düzenleyerek birbirini hiç tanımasa da birbirini tamamlayan bireyleri
+                yaratıcı ve özgür fikir üretme ortamlarında buluşturur.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[#4C46A8] rounded-full">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#262243] mb-1">Disiplinlerarası İşbirlikleri</h3>
+                    <p className="text-gray-600">Farklı alanlardan uzmanları bir araya getiriyoruz</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[#4C46A8] rounded-full">
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#262243] mb-1">İlham Verici Söyleşiler</h3>
+                    <p className="text-gray-600">Sınırları aşan hikayeler ve vizyonlar paylaşıyoruz</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[#4C46A8] rounded-full">
+                    <Lightbulb className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#262243] mb-1">Yaratıcı Atölyeler</h3>
+                    <p className="text-gray-600">Uygulamalı çözüm tasarımları geliştiriyoruz</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Programs Section */}
       <section id="programs" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-[#262243] mb-16 text-center">Programlarımız</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#262243] mb-4 text-center">Programlarımız</h2>
+          <p className="text-xl text-gray-600 mb-16 text-center max-w-3xl mx-auto">
+            Farklı disiplinlerin buluştuğu, yaratıcı düşüncenin filizlendiği programlarımızla tanışın
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Kolektif Masa */}
@@ -103,7 +249,7 @@ function App() {
                 Farklı disiplinlerin kesişimlerinde ilham veren çalışmalara imza atmış isimleri ağırladığımız online bir söyleşi serisi.
               </p>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Katılımcılar, sınırları aşan hikayeleri ve vizyonlarıyla ilham verir. Takipte kal, hiçbir bölümü kaçırma! 🤝
+                Katılımcılar, sınırları aşan hikayeleri ve vizyonlarıyla ilham verir. Takipte kal, hiçbir bölümü kaçırma!
               </p>
             </div>
 
@@ -117,7 +263,7 @@ function App() {
                 Her ay topluluk üyelerinden biri sahneye çıkar, yetkin olduğu konuda bilgi paylaşır.
               </p>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Ardından soru-cevap ve deneyim paylaşımıyla kolektif bir öğrenme ortamı oluşur. 🌍 <strong>Amacımız:</strong> Bilgi paylaşımı, farklı alanlara yeni pencereler açmak ve kolektif öğrenmeyi güçlendirmek.
+                Ardından soru-cevap ve deneyim paylaşımıyla kolektif bir öğrenme ortamı oluşur. <strong>Amacımız:</strong> Bilgi paylaşımı, farklı alanlara yeni pencereler açmak ve kolektif öğrenmeyi güçlendirmek.
               </p>
             </div>
           </div>
@@ -125,54 +271,65 @@ function App() {
       </section>
 
       {/* Team Section */}
-      <section className="py-24 px-6 bg-gray-50">
+      <section id="team" className="py-24 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-[#262243] mb-16 text-center">Ekip</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#262243] mb-4 text-center">Ekip</h2>
+          <p className="text-xl text-gray-600 mb-16 text-center">
+            Scirise ekibi, farklı disiplinlerden gelen gençlerin ortak üretim gücüne inanır.
+          </p>
 
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center group">
-              <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-full flex items-center justify-center text-white text-4xl font-bold transform transition-all duration-300 group-hover:scale-110">
-                A
-              </div>
-              <h3 className="text-xl font-bold text-[#262243] mb-1">Alara</h3>
-              <p className="text-gray-600">Kurucu & Koordinatör</p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-full flex items-center justify-center text-white text-4xl font-bold transform transition-all duration-300 group-hover:scale-110">
-                N
+              <div className="w-48 h-48 mx-auto mb-4 rounded-3xl overflow-hidden shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                <img
+                  src={teamNazlican}
+                  alt="Nazlıcan"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-xl font-bold text-[#262243] mb-1">Nazlıcan</h3>
-              <p className="text-gray-600">Etkinlik Tasarımı</p>
+              <p className="text-[#4C46A8] font-semibold">Founder</p>
             </div>
 
             <div className="text-center group">
-              <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-full flex items-center justify-center text-white text-4xl font-bold transform transition-all duration-300 group-hover:scale-110">
-                E
+              <div className="w-48 h-48 mx-auto mb-4 rounded-3xl overflow-hidden shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                <img
+                  src={teamAlara}
+                  alt="Alara"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-[#262243] mb-1">Alara</h3>
+              <p className="text-gray-600">Core Team</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-48 h-48 mx-auto mb-4 rounded-3xl overflow-hidden shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                <img
+                  src={teamEda}
+                  alt="Eda"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-xl font-bold text-[#262243] mb-1">Eda</h3>
-              <p className="text-gray-600">İçerik ve İletişim</p>
+              <p className="text-gray-600">Core Team</p>
             </div>
 
             <div className="text-center group">
-              <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-full flex items-center justify-center text-white text-4xl font-bold transform transition-all duration-300 group-hover:scale-110">
+              <div className="w-48 h-48 mx-auto mb-4 bg-gradient-to-br from-[#262243] to-[#4C46A8] rounded-3xl flex items-center justify-center text-white text-5xl font-bold transform transition-all duration-300 group-hover:scale-105 shadow-lg group-hover:shadow-2xl">
                 E
               </div>
               <h3 className="text-xl font-bold text-[#262243] mb-1">Efe</h3>
-              <p className="text-gray-600">Topluluk Gelişimi</p>
+              <p className="text-gray-600">Core Team</p>
             </div>
           </div>
-
-          <p className="text-center text-xl text-gray-700">
-            Scirise ekibi, farklı disiplinlerden gelen gençlerin ortak üretim gücüne inanır.
-          </p>
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-24 px-6 bg-gradient-to-br from-[#262243] via-[#3d3763] to-[#4C46A8] text-white">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-5xl font-bold mb-4 text-center">Bizimle İletişime Geç 💌</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">Bizimle İletişime Geç</h2>
           <p className="text-xl mb-12 text-center text-gray-200">Birlikte üretelim, birlikte öğrenelim.</p>
 
           <form onSubmit={handleSubmit} className="space-y-6 mb-12">
